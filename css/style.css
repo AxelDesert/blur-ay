@@ -1,0 +1,149 @@
+body, html {
+    background-color: #59B4C3;
+    color: #fff;
+    font-family: Carlito, sans-serif;  
+}
+
+.test {
+    color: #fff;
+    font-family: Carlito, sans-serif;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
+    display:grid;
+}
+
+.test img{
+    max-width: 95%; /* Pour s'assurer que l'image ne dépasse pas la taille du conteneur */
+    max-height: 95%; /* Pour s'assurer que l'image ne dépasse pas la taille du conteneur */
+    display: block; /* Pour gérer correctement les marges */
+    margin: auto;
+}
+
+.cadre {
+    max-width: 100%; /* Pour s'assurer que l'image ne dépasse pas la taille du conteneur */
+    max-height: 100%;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 4px;
+    border-right-width: 4px; /* Pour s'assurer que l'image ne dépasse pas la taille du conteneur */
+    display: block; /* Pour gérer correctement les marges */
+    margin: auto; ; /* couleur et taille du cadre */
+    padding: 5px;
+}
+
+.comapre {
+    text-align: center;
+}
+.images button{
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+.container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.text-container input[type="text"] {
+    width: calc(100% - 120px); /* Réglage de la largeur de l'entrée en fonction de la largeur du bouton */
+}
+
+.comparison-message {
+    text-align: center;
+    margin-top: 20px;
+}
+.points {
+    text-align: right;
+    font-family: Carlito, sans-serif;
+}
+
+.result {
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.gagne {
+    font-family:'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.gagne button {
+    text-align: center;
+}
+
+
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #211C6A;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px;
+    border: 2px solid #211C6A;
+    transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .bouton:hover {
+        background-color: #211C6A;
+        border-color: #bf34db;
+    }
+.images {
+    color: #7734db;
+    top: 50px;
+}
+
+.tentative {
+    position: absolute; /* Position absolue pour positionner le texte librement */
+    left: 20%; /* Alignement à gauche de 50% de la largeur de l'écran */
+    transform: translateX(-50%); /* Déplacement de 50% de la largeur du texte vers la gauche */
+    top: 400px; /* Espace en haut de l'écran (ajustez selon vos besoins) */
+    color: #faf8f8; /* Couleur du texte */
+    font-family: sans-serif; /* Police de caractères */
+    font-size: 18px; /* Taille de la police */
+}
+
+.points {
+    position: absolute; /* Position absolue pour positionner le texte librement */
+    right: 20%; /* Alignement à gauche de 50% de la largeur de l'écran */
+    transform: translateX(-50%); /* Déplacement de 50% de la largeur du texte vers la gauche */
+    top: 400px; /* Espace en haut de l'écran (ajustez selon vos besoins) */
+    color: #faf8f8; /* Couleur du texte */
+    font-family: sans-serif; /* Police de caractères */
+    font-size: 18px; /* Taille de la police */
+}
+
+.fin {
+    text-align: center;
+}
+
+.tour {
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    left: 900px;
+}
+
+.fin1{
+    margin-left: 50%;
+    text-align: center;
+    text-align: center;
+    align-items: right;
+
+}
+
+.bouton{
+    text-align: center;
+    align-items: center;
+}
+

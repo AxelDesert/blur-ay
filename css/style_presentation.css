@@ -1,0 +1,108 @@
+.html, body {
+    height: 100%;
+    background-color: #59B4C3;
+    text-align: center;
+    font-family: 'Righteous', serif;
+
+}
+
+.bouton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #211C6A;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px;
+    border: 2px solid #2980b9;
+    transition: background-color 0.3s, border-color 0.3s;
+    }
+
+.bouton:hover {
+    background-color: #2980b9;
+    border-color: #3498db;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.image-container {
+    text-align: center;
+}
+
+.text-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.text-container input[type="text"] {
+    width: calc(100% - 120px); /* Réglage de la largeur de l'entrée en fonction de la largeur du bouton */
+}
+
+.comparison-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+
+h1 {
+    position: relative; /* Position absolue pour placer le texte en haut */
+    top: 0; /* Placer le texte au sommet de la page */
+    left: 50%; /* Centrer horizontalement */
+    transform: translateX(-50%); /* Déplacer de moitié de sa propre largeur pour centrer correctement */
+    color: white;
+    font-family: 'Righteous', serif;
+    font-size: 12em;
+    text-shadow: .03em .03em 0 #211C6A;
+}
+
+h1:after {
+    content: attr(data-shadow);
+    position: absolute;
+    top: .06em;
+    left: .06em;
+    z-index: -1;
+    left: 35%; /* Centrer horizontalement */
+    text-shadow: none;
+    background-image: linear-gradient(45deg, transparent 45%, hsla(48, 20%, 90%, 1) 45%, hsla(48, 20%, 90%, 1) 55%, transparent 0);
+    background-size: .05em .05em;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shad-anim 15s linear infinite;
+}
+
+.bouton-container {
+    margin-top: 5%;
+}
+
+.carre {
+    margin-left: 42%;
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #677179;
+    color: white;
+    font-family: Carlito, sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carre p {
+    margin: 0; /* Pour enlever le margin par défaut */
+}

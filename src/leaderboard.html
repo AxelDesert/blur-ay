@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/style_presentation.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+    <div>
+        <h2>Leaderboard</h2>
+        <ul>
+            
+          <li v-for="entry in leaderboardData">
+            {{ entry.username }} - Points: {{ entry.points }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                leaderboardData: [],
+            },
+            methods:{
+
+                fetchLeaderboardData() {
+                    // Effectuer une requête HTTP GET pour récupérer les données du leaderboard depuis le serveur
+                    axios.get("http://localhost:5501/leaderboard")
+                    .then(response => {
+                        // Mettre à jour les données du leaderboard
+                        this.leaderboardData = response.data;
+
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la récupération des données du leaderboard:", error);
+                    });
+                },
+                submitForm() {
+                    axios.post("http://localhost:5501/addData", {
+                        username: this.username,
+                        points: this.points
+                    })
+                    .then(response => {
+                        // Traitez la réponse si nécessaire
+                        console.log("Data saved successfully:", response.data);
+                    })
+                    .catch(error => {
+                        // Gérez les erreurs si elles surviennent
+                        console.error("Error saving data:", error);
+                    });
+                },
+            },
+            mounted() {
+                this.fetchLeaderboardData();
+                console.log(this.leaderboardData)
+            }
+        });
+    </script>
+    
+</html>
+</body>

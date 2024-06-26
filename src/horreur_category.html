@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="../css/style.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <br><br>
+    <div class="test">
+        <img class="image1" :style="{ filter: 'blur(' + blur + 'px)' }" :src="'https://image.tmdb.org/t/p/w500/' + posts" alt="Poster">
+        <div class="cadre"></div>
+    </div>
+
+    <p  class="comapre" v-if="otherstate === true">
+        <input type="text" v-model="userInput"  @keyup.enter="compareInput" placeholder="Enter a value">
+        <button class="bouton" @click="compareInput()">Compare</button>
+       
+    </p>
+    <div class="points">
+        Points: {{ points }}
+        </div>
+        <div class="tentative">
+        Tentatives: {{tentatives}}
+    </div>
+
+    <div class="tour">
+       Tours restant: {{ 4  - tours}}
+        </div>
+
+        <div class="gagne">
+    <p class="images" v-if="otherstate === false && tours <= 3">
+        
+        <button class="bouton" id="butcontinuer" v-on:click="display_img()" onclick="supprimerBouton(id)">Continuer</button>
+        
+        <br>
+    </div>
+    </p>
+    <div class="result">
+    <p v-if="comparisonResult === false">
+        {{ comparisonMessage }}
+    </p>
+    </div>
+    <div>
+        <p class="fin" v-if="tours === 4"> C'est terminé, ton nombre de points: {{ points}}
+        </p>
+
+        <p class="fin" v-if="tours === 4">
+            <form @submit.prevent="submitForm"  v-if="tours === 4">
+                <label for="username" v-if="tours === 4">Enter your name:</label>
+                <input type="text" id="username" v-model="username" required>
+                <button class="bouton" type="submit">Submit</button>
+            </form>
+        </p>
+        <a v-if="tours === 4" href="principal_page.html" class="bouton">Recommencer</a>
+          </div>
+      
+    </div>
+
+<script>
+    function supprimerBouton(id) {
+        var bouton = document.getElementById(id);
+        bouton.parentNode.removeChild(bouton);
+    }
+    var app = new Vue({
+        el: '#app',
+        data: {
+            blur: 30,
+            posts: "",
+            userInput: "",
+            apiVariable: "exampleValue",
+            comparisonResult: null,
+            otherstate: true,
+            comparisonMessage: "",
+            buttonVisible: true,
+            points: 0,
+            tours: 0,
+            tentatives: 5,
+            username: "",
+            leaderboardData: [],
+        },
+        methods:{
+            fetchLeaderboardData() {
+                    // Effectuer une requête HTTP GET pour récupérer les données du leaderboard depuis le serveur
+                    axios.get("http://localhost:5501/leaderboard")
+                    .then(response => {
+                        // Mettre à jour les données du leaderboard
+                        this.leaderboardData = response.data;
+                        this.leaderboardData.forEach(element => {
+                            console.log(element.username)
+                        });
+
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors de la récupération des données du leaderboard:", error);
+                    });
+                },
+                submitForm() {
+                    axios.post("http://localhost:5501/addData", {
+                        username: this.username,
+                        points: this.points
+                    })
+                    .then(response => {
+                        // Traitez la réponse si nécessaire
+                        console.log("Data saved successfully:", response.data);
+                    })
+                    .catch(error => {
+                        // Gérez les erreurs si elles surviennent
+                        console.error("Error saving data:", error);
+                    });
+                },
+            display_img() {
+                this.blur = 30;
+                let min = 0;
+                let max = 19;
+                let random = Math.floor(Math.random() * (max - min + 1)) + min;
+                max = 20
+                let random2 = Math.floor(Math.random() * (max - min + 1)) + min;
+                this.tentatives = 5;
+                axios.get("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=" + random2 + "&release_date.gte=2000-01-01&with_genres=27&with_original_language=en&sort_by=popularity.desc", {
+                    headers: {
+                        accept: 'application/json',
+                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4OGE2ZDA4YTE3ZmMyN2NiMGQyNzQ3MmUxYzdlMWY0YyIsInN1YiI6IjY1ZmVhNTgyMTk3ZGU0MDE2MzE2OWQzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2QABYND50qo32MxOA01Q6al3AFMdXgc_9oLxfWy57rg'
+                    },
+                })
+                    .then(response => {
+                        console.log(response);
+                        this.posts = response.data.results[random].poster_path;
+                        this.apiVariable = response.data.results[random].title;
+                        var imageElement = document.createElement("img");
+                        this.otherstate = true;
+                        this.comparisonResult = true;
+                        this.comparisonMessage === "non";
+                        imageElement.src = 'https://image.tmdb.org/t/p/w500' + this.posts;
+                    });
+            },
+            compareStrings(str1, str2) {
+                const threshold = 0.9; // 90% threshold
+                const length = str1.length;
+                let matchedCharacters = 0;
+                // Convert both strings to lowercase
+                str1 = str1.toLowerCase();
+                str2 = str2.toLowerCase();
+                // Loop through each character of str1
+                for (let i = 0; i < str1.length; i++) {
+                    const char = str1[i];
+                    const index = str2.indexOf(char);
+                    if (index !== -1) {
+                        matchedCharacters++;
+                        str2 = str2.slice(0, index) + str2.slice(index + 1);
+                    }
+                }
+                const percentage = matchedCharacters / length;
+                console.log("percentage:", percentage); // Print percentage
+                return percentage >= threshold;
+            },
+            compareInput() {
+                if (this.compareStrings(this.apiVariable, this.userInput)) {
+                    this.comparisonResult = true;
+                    this.comparisonMessage = "Bravo !";
+                    this.otherstate = false;
+                    this.blur = 0;
+                    this.userInput = "";
+                    this.points += 1;
+                    this.tours += 1;
+                    // on passe à la prochaine image mais gagné
+                } else if (this.userInput !== this.apiVariable && this.blur !== 10) {
+                    this.comparisonResult = false;
+                    this.comparisonMessage = "Recommence";
+                    this.blur -= 5;
+                    this.userInput = "";
+                    this.tentatives -= 1;
+                } else {
+                    this.userInput = "";
+                    this.blur = 0;
+                    this.comparisonMessage = "Dommage ! Le film était : " + this.apiVariable;
+                    this.comparisonResult = false
+                    this.otherstate = false;
+                    this.tours += 1;
+                    this.tentatives -= 1;
+
+                }
+            },
+        },
+        mounted() {
+            this.display_img();
+        }
+    });
+</script>
+</body>
+</html>

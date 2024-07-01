@@ -11,3 +11,7 @@ git clone git@github.com:AxelDesert/blur-ay.git
 Then you open "src/principal_page.html"
 
 Enjoy !
+
+## Authors
+
+AxelDesert  /  Aleksrac
